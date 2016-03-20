@@ -13,7 +13,6 @@ $settings = require 'settings.php';
 $app = new \Slim\App($settings);
 
 require 'dependencies.php';
-require 'auth.php';
 require 'routes.php';
 
 $app->run();
