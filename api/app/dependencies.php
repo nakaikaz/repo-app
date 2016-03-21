@@ -21,6 +21,24 @@ $container['monolog'] = function($c){
 	$monolog->pushHandler(new Monolog\Handler\FirePHPHandler());
 	return $monolog;
 };
+$container['medoo'] = function($c){
+	$db = $c->get('settings')['db'];
+	return new medoo(array(
+		'database_type' => 'pgsql',
+		'database_name' => $db['dbname'],
+		'server'		=> $db['host'],
+		'username'		=> $db['user'],
+		'password'		=> $db['pass'],
+		'port'			=> $db['port'],
+		'charset'		=> 'utf8'
+	));
+};
+$container['app.conf'] = function($c){
+	return $c->get('settings')['app.conf'];
+};
+$container['smtp.conf'] = function($c){
+	return $c->get('settings')['smtp.conf'];
+};
 $container['errorHandler'] = function($c){
 	return function($request, $response, $exception) use($c){
 		$data = array(
@@ -33,8 +51,7 @@ $container['errorHandler'] = function($c){
 
 		$c['monolog']->addDebug('error', $data);
 
-		return $c['response']->withStatus(500)
-			->withHeader('Content-Type', 'application/json')->withJson($data);
+		return $c['response']->withStatus(500)->withHeader('Content-Type', 'application/json')->withJson($data);
 	};
 };
 
@@ -43,8 +60,11 @@ $container['errorHandler'] = function($c){
 // ------------------------------------
 
 $container[App\Action\HomeAction::class] = function($c){
-	return new App\Action\HomeAction($c->get('monolog'));
+	return new App\Action\HomeAction($c);
 };
 $container[App\Action\SessionAction::class] = function($c){
-	return new App\Action\SessionAction($c->get('session'), $c->get('monolog'));
+	return new App\Action\SessionAction($c);
+};
+$container[App\Action\PreSignUpAction::class] = function($c){
+	return new App\Action\PreSignUpAction($c);
 };
