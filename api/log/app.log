@@ -1,5 +1,0 @@
-[2016-03-21 20:58:28] repo-app.INFO: root action dispatched. [] {"uid":"20327f5"}
-[2016-03-21 20:59:43] repo-app.INFO: root action dispatched. [] {"uid":"777de14"}
-[2016-03-21 20:59:47] repo-app.INFO: session action dispatched. [] {"uid":"1032e76"}
-[2016-03-21 21:00:00] repo-app.INFO: presignup action dispatched. [] {"uid":"098afbb"}
-[2016-03-21 21:06:35] repo-app.INFO: root action dispatched. [] {"uid":"0456e8f"}

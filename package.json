@@ -1,0 +1,24 @@
+{
+  "name": "repo-app",
+  "version": "1.0.0",
+  "description": "https://fathomless-shelf-54213.herokuapp.com/",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nakaikaz/repo-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nakaikaz/repo-app/issues"
+  },
+  "homepage": "https://github.com/nakaikaz/repo-app#readme",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-less": "^1.2.0",
+    "grunt-contrib-watch": "^1.0.0"
+  }
+}
