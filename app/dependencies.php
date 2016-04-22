@@ -49,8 +49,11 @@ $container['app'] = function($c){
 $container['smtp'] = function($c){
 	return $c->get('settings')['smtp'];
 };
-$container['token'] = function($c){
+/*$container['token'] = function($c){
 	return $c->get('settings')['token'];
+};*/
+$container['dirs'] = function($c){
+	return $c->get('settings')['dirs'];
 };
 $container['view'] = function($c){
 	$settings = $c->get('settings');
@@ -79,7 +82,7 @@ $container['errorHandler'] = function($c){
 // Action factories
 // ------------------------------------
 
-$container[App\Action\Home\HomeAction::class] = function($c){
+/*$container[App\Action\Home\HomeAction::class] = function($c){
 	return new App\Action\Home\HomeAction($c);	
 };
 $container[App\Action\Account\PreSignUpAction::class] = function($c){
@@ -96,4 +99,4 @@ $container[App\Action\Account\LogoutAction::class] = function($c){
 };
 $container[App\Action\Report\ListAction::class] = function($c){
 	return new App\Action\Report\ListAction($c);
-};
+};*/

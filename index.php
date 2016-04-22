@@ -9,8 +9,11 @@ if('Asia/Tokyo' != $timezone){
 // トークンディレクトリを作成
 $tokenDir = 'token';
 if(!is_dir($tokenDir)){
-	mkdir($tokenDir);
-	chmod($tokenDir, 0775);
+	mkdir($tokenDir, 0755, true);
+}
+$uploadedDir = 'uploadedDir';
+if(!is_dir($uploadedDir)){
+	mkdir($uploadedDir, 0755, true);
 }
 
 $settings = require 'app/config/config.php';

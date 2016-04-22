@@ -12,7 +12,7 @@ $(function(){
             $('#pre-signup-form .error-required').show();
             $nameGroup.addClass('has-error');
         }
-        if('' ==! email && !email.match(/.+@.+\..+/g)){
+        if('' !== email && !email.match(/.+@.+\..+/g)){
             $('#pre-signup-form .error-invalid').show();
             $nameGroup.addClass('has-error');
         }

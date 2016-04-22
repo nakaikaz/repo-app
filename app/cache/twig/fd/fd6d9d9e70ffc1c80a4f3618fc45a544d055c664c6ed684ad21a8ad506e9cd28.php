@@ -10,6 +10,7 @@ class __TwigTemplate_0866c54138a1fb558f5bb89453200e0302361475a826fee0a8760e8215a
         $this->parent = false;
 
         $this->blocks = array(
+            'title' => array($this, 'block_title'),
             'content' => array($this, 'block_content'),
         );
     }
@@ -47,7 +48,10 @@ class __TwigTemplate_0866c54138a1fb558f5bb89453200e0302361475a826fee0a8760e8215a
         echo "/js/";
         echo twig_escape_filter($this->env, (isset($context["script"]) ? $context["script"] : null), "html", null, true);
         echo ".js\"></script>
-\t<title></title>
+\t<title>";
+        // line 11
+        $this->displayBlock('title', $context, $blocks);
+        echo " | レポートアプリ</title>
 </head>
 <body>
 
@@ -59,6 +63,11 @@ class __TwigTemplate_0866c54138a1fb558f5bb89453200e0302361475a826fee0a8760e8215a
 </body>
 </html>
 ";
+    }
+
+    // line 11
+    public function block_title($context, array $blocks = array())
+    {
     }
 
     // line 15
@@ -78,7 +87,7 @@ class __TwigTemplate_0866c54138a1fb558f5bb89453200e0302361475a826fee0a8760e8215a
 
     public function getDebugInfo()
     {
-        return array (  65 => 15,  58 => 16,  56 => 15,  46 => 10,  42 => 9,  38 => 8,  34 => 7,  30 => 6,  26 => 5,  20 => 1,);
+        return array (  74 => 15,  69 => 11,  62 => 16,  60 => 15,  53 => 11,  47 => 10,  43 => 9,  39 => 8,  35 => 7,  31 => 6,  27 => 5,  21 => 1,);
     }
 }
 /* <!DOCTYPE html>*/
@@ -91,7 +100,7 @@ class __TwigTemplate_0866c54138a1fb558f5bb89453200e0302361475a826fee0a8760e8215a
 /* 	<script src="{{appUrl}}/vendor/components/jquery/jquery.js"></script>*/
 /* 	<script src="{{appUrl}}/vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>*/
 /* 	<script src="{{appUrl}}/js/{{script}}.js"></script>*/
-/* 	<title></title>*/
+/* 	<title>{% block title %}{% endblock %} | レポートアプリ</title>*/
 /* </head>*/
 /* <body>*/
 /* */

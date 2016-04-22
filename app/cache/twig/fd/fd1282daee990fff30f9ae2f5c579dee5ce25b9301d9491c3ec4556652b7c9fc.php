@@ -10,6 +10,7 @@ class __TwigTemplate_4a5236707255b606adea75c848e6ad44f667a73a0e01e781071afc15908
         // line 1
         $this->parent = $this->loadTemplate("base.html", "signup.html", 1);
         $this->blocks = array(
+            'title' => array($this, 'block_title'),
             'content' => array($this, 'block_content'),
         );
     }
@@ -25,11 +26,17 @@ class __TwigTemplate_4a5236707255b606adea75c848e6ad44f667a73a0e01e781071afc15908
     }
 
     // line 3
+    public function block_title($context, array $blocks = array())
+    {
+        echo "新規登録";
+    }
+
+    // line 4
     public function block_content($context, array $blocks = array())
     {
-        // line 4
-        $this->loadTemplate("navbar.html", "signup.html", 4)->display($context);
         // line 5
+        $this->loadTemplate("navbar.html", "signup.html", 5)->display($context);
+        // line 6
         echo "<div class=\"section\">
 \t<div class=\"container\">
 \t\t<div class=\"row\">
@@ -55,11 +62,11 @@ class __TwigTemplate_4a5236707255b606adea75c848e6ad44f667a73a0e01e781071afc15908
 \t\t\t\t\t\t</div>
 \t\t\t\t\t\t<div class=\"col-sm-9\">
 \t\t\t\t\t\t\t<label class=\"control-label\">";
-        // line 29
+        // line 30
         echo twig_escape_filter($this->env, (isset($context["email"]) ? $context["email"] : null), "html", null, true);
         echo "</label>
 \t\t\t\t\t\t\t<input type=\"hidden\" id=\"signup-email\" value=\"";
-        // line 30
+        // line 31
         echo twig_escape_filter($this->env, (isset($context["email"]) ? $context["email"] : null), "html", null, true);
         echo "\" placeholder=\"メールアドレス\" >
 \t\t\t\t\t\t\t<p class=\"help-block error-message error-required\">メールアドレスを入力してください</p>
@@ -86,7 +93,7 @@ class __TwigTemplate_4a5236707255b606adea75c848e6ad44f667a73a0e01e781071afc15908
 \t\t\t\t\t\t</div>
 \t\t\t\t\t</div>
 \t\t\t\t\t<!--input type=\"hidden\" id=\"signup-token\" value=\"";
-        // line 54
+        // line 55
         echo twig_escape_filter($this->env, (isset($context["token"]) ? $context["token"] : null), "html", null, true);
         echo "\"-->
 \t\t\t\t\t<div class=\"form-group\">
@@ -100,8 +107,8 @@ class __TwigTemplate_4a5236707255b606adea75c848e6ad44f667a73a0e01e781071afc15908
 \t</div>
 </div>
 ";
-        // line 65
-        $this->loadTemplate("progress-bar.html", "signup.html", 65)->display($context);
+        // line 66
+        $this->loadTemplate("progress-bar.html", "signup.html", 66)->display($context);
     }
 
     public function getTemplateName()
@@ -116,11 +123,12 @@ class __TwigTemplate_4a5236707255b606adea75c848e6ad44f667a73a0e01e781071afc15908
 
     public function getDebugInfo()
     {
-        return array (  104 => 65,  90 => 54,  63 => 30,  59 => 29,  33 => 5,  31 => 4,  28 => 3,  11 => 1,);
+        return array (  111 => 66,  97 => 55,  70 => 31,  66 => 30,  40 => 6,  38 => 5,  35 => 4,  29 => 3,  11 => 1,);
     }
 }
 /* {% extends "base.html" %}*/
 /* */
+/* {% block title %}新規登録{% endblock %}*/
 /* {% block content %}*/
 /* {% include "navbar.html" %}*/
 /* <div class="section">*/

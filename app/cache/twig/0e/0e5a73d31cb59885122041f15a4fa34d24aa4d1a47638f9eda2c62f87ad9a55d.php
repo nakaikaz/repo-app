@@ -10,6 +10,7 @@ class __TwigTemplate_eef50ccfd553acd8bbecdd4575d286ec2e9db0911ddb331010687acb303
         // line 1
         $this->parent = $this->loadTemplate("base.html", "login.html", 1);
         $this->blocks = array(
+            'title' => array($this, 'block_title'),
             'content' => array($this, 'block_content'),
         );
     }
@@ -25,11 +26,17 @@ class __TwigTemplate_eef50ccfd553acd8bbecdd4575d286ec2e9db0911ddb331010687acb303
     }
 
     // line 3
+    public function block_title($context, array $blocks = array())
+    {
+        echo "ログイン";
+    }
+
+    // line 4
     public function block_content($context, array $blocks = array())
     {
-        // line 4
-        $this->loadTemplate("navbar.html", "login.html", 4)->display($context);
         // line 5
+        $this->loadTemplate("navbar.html", "login.html", 5)->display($context);
+        // line 6
         echo "<div class=\"section\">
 \t<div class=\"container\">
 \t\t<div class=\"row\">
@@ -76,8 +83,8 @@ class __TwigTemplate_eef50ccfd553acd8bbecdd4575d286ec2e9db0911ddb331010687acb303
 \t</div>
 </div>
 ";
-        // line 50
-        $this->loadTemplate("progress-bar.html", "login.html", 50)->display($context);
+        // line 51
+        $this->loadTemplate("progress-bar.html", "login.html", 51)->display($context);
     }
 
     public function getTemplateName()
@@ -92,11 +99,12 @@ class __TwigTemplate_eef50ccfd553acd8bbecdd4575d286ec2e9db0911ddb331010687acb303
 
     public function getDebugInfo()
     {
-        return array (  80 => 50,  33 => 5,  31 => 4,  28 => 3,  11 => 1,);
+        return array (  87 => 51,  40 => 6,  38 => 5,  35 => 4,  29 => 3,  11 => 1,);
     }
 }
 /* {% extends "base.html" %}*/
 /* */
+/* {% block title %}ログイン{% endblock %}*/
 /* {% block content %}*/
 /* {% include "navbar.html" %}*/
 /* <div class="section">*/

@@ -40,6 +40,10 @@ return array(
 		'token' => array(
 			'dir' => __DIR__ . '/../../token/'
 		),
+		'dirs' => array(
+			'token' => __DIR__ . '/../../token',
+			'uploadedDir' => __DIR__ . '/../../uploadedDir'
+		),
 		'view' => array(
 			'template_path' => array(
 				__DIR__ . '/../templates',

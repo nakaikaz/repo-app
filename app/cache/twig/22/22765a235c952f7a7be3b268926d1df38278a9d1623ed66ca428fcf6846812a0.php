@@ -27,8 +27,8 @@ class __TwigTemplate_d547921054ca4c6586a9777c465bd6a6e3a108f6da27a41f8c3def6a8ba
         if ((isset($context["authenticated"]) ? $context["authenticated"] : null)) {
             // line 8
             echo "            <ul class=\"nav navbar-nav\">
-                <li class=\"active\"><a href=\"/reports/list\">一覧</a></li>
-                <li><a href=\"/repot/new\">新規作成</a></li>
+                <li class=\"active\"><a href=\"/report/list\">一覧</a></li>
+                <li><a href=\"/report/new\">新規作成</a></li>
             </ul>
             ";
         }
@@ -39,7 +39,7 @@ class __TwigTemplate_d547921054ca4c6586a9777c465bd6a6e3a108f6da27a41f8c3def6a8ba
         if ((isset($context["authenticated"]) ? $context["authenticated"] : null)) {
             // line 15
             echo "                <li class=\"dropdown\">
-                    <a aria-expand=\"false\" aria-haspopup=\"true\" role=\"down\" data-toggle=\"dropdown\" class=\"dropdown-toggle\">
+                    <a aria-expand=\"false\" aria-haspopup=\"true\" role=\"button\" data-toggle=\"dropdown\" class=\"dropdown-toggle\">
                         ";
             // line 17
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["user"]) ? $context["user"] : null), "name", array()), "html", null, true);
@@ -86,14 +86,14 @@ class __TwigTemplate_d547921054ca4c6586a9777c465bd6a6e3a108f6da27a41f8c3def6a8ba
 /*         <div>*/
 /*             {% if authenticated %}*/
 /*             <ul class="nav navbar-nav">*/
-/*                 <li class="active"><a href="/reports/list">一覧</a></li>*/
-/*                 <li><a href="/repot/new">新規作成</a></li>*/
+/*                 <li class="active"><a href="/report/list">一覧</a></li>*/
+/*                 <li><a href="/report/new">新規作成</a></li>*/
 /*             </ul>*/
 /*             {% endif %}*/
 /*             <ul class="nav navbar-nav navbar-right">*/
 /*                 {% if authenticated %}*/
 /*                 <li class="dropdown">*/
-/*                     <a aria-expand="false" aria-haspopup="true" role="down" data-toggle="dropdown" class="dropdown-toggle">*/
+/*                     <a aria-expand="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle">*/
 /*                         {{ user.name }}<span class="caret"></span>*/
 /*                     </a>*/
 /*                     <ul class="dropdown-menu">*/

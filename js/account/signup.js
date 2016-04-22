@@ -51,7 +51,7 @@ $(function(){
         .done(function(data){
             if(data.status){
                 console.log(data);
-                location.href = '/reports/list';
+                location.href = '/report/list';
             }else{
                 console.log(data);
             }
