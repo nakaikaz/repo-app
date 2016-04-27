@@ -3,23 +3,34 @@ module.exports = function(grunt){
         less: {
             development: {
                 options: {
-                    paths: ["less"]
+                    paths: ['less']
                 },
                 files: {
-                    "css/style.css": ["less/*.less", "less/*/*.less"]
+                    'css/style.css': ['src/less/*.less', 'src/less/*/*.less']
                 }
+            }
+        },
+        concat: {
+            files: {
+                src: ['src/js/*.js', 'src/js/*/*.js'],
+                dest: 'js/script.js'
             }
         },
         watch: {
             less: {
-                files: ['./less/*.less', 'less/*/*.less'],
+                files: ['src/less/*.less', 'src/less/*/*.less'],
                 tasks: ['less']
+            },
+            js: {
+                files: 'src/js/*/*.js',
+                tasks: ['concat']
             }
         }
     });
 
     grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
-    grunt.registerTask('default', ['less', 'watch']);
+    grunt.registerTask('default', ['less', 'concat', 'watch']);
 }

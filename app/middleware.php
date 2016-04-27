@@ -5,8 +5,8 @@ $app->add(function($request, $response, $next){
 	$appUrl = $uri->getScheme() . '://' . $uri->getHost();
 	$env = $this->get('view')->getEnvironment();
 	$env->addGlobal('appUrl', $appUrl);
-	$path = $uri->getPath();
-	$path = ltrim($path, '/');
-	$env->addGlobal('script', $path);
+	//$path = $uri->getPath();
+	//$path = ltrim($path, '/');
+	//$env->addGlobal('script', $path);
 	return $next($request, $response);
 });

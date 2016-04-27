@@ -1,10 +1,10 @@
 <?php
-namespace App\Controller\Report;
+namespace App\Controller;
 
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
-final class ImageController {
+final class ReportController {
 
     private $logger;
     private $view;
@@ -20,6 +20,16 @@ final class ImageController {
         $this->session = $c->get('session');
     }
 
+    public function getReportsAction(Request $request, Response $response, $args){
+        $user = $this->session->get('user');
+        $authenticated = $user ? true : false;
+        $this->view->render($response, 'list.html', array(
+            'authenticated' => $authenticated,
+            'user' => $user
+        ));
+        return $response;
+    }
+    
     /*
      * php_value post_max_size 16M
      * php_value upload_max_filesize 6M
@@ -27,9 +37,9 @@ final class ImageController {
      */
     public function uploadImageAction(Request $request, Response $response, $args){
         $user = $this->session->get('user');
-        $authenticated = $user ? true : false;
+        //$authenticated = $user ? true : false;
         $email = $user['email'];
-        $memo = $request->getParam('memo');
+        //$memo = $request->getParam('memo');
         $files = $request->getUploadedFiles();
         if(!isset($files)){
             return $response->withJson(array(
@@ -89,7 +99,7 @@ final class ImageController {
             'uploaded' => array(
                 'name' => $email . '/' . $hash . '/' . $nameOnly . '.' .$ext,
                 //'path' => $outDir . $email . '/' . $hash . '/' . $nameOnly . '.' . $ext,
-                'memo' => $memo
+                //'memo' => $memo
             )
         ));
     }
@@ -172,6 +182,130 @@ final class ImageController {
             'status' => true,
             'message' => 'successfully removed.'
         ));
+    }
+    
+    public function renderNewHTMLAction(Request $request, Response $response, $args){
+        $user = $this->session->get('user');
+        $authenticated = $user ? true : false;
+        $this->view->render($response, 'new.html', array(
+            'authenticated' => $authenticated,
+            'user' => $user
+        ));
+        return $response;
+    }
+    
+    public function postReportAction(Request $request, Response $response, $args){
+        $r = $request->getParsedBody();
+        // 画像ファイル情報が配列で送信されていたら、「;」でつなぎ合わせた文字列としてDBへ挿入する
+        if(count($r['images']) > 0){
+            $thumbnail = $r['images'][0];
+            $r['images'] = serialize($r['images']);
+            // 配列の一つ目の画像は、縮小してサムネイルとして保存する
+            $srcPath = $thumbnail['name'];
+            $pos = strrpos($srcPath, '/');
+            $hash = substr($srcPath, 0, $pos);
+            $pathinfo = pathinfo($srcPath);
+            $filename = $pathinfo['filename'];
+            $extension = $pathinfo['extension'];
+            $thumbnailName = $filename . '.thumb.' . $extension;
+            $dstPath = $this->uploadedDir.'/'.$hash.'/'.$thumbnailName;
+            $srcPath = $this->uploadedDir . '/' . $srcPath;
+            $this->copyImage($srcPath, $dstPath, array('width' => 100, 'height' => 100));
+            $thumbnailPath = $hash . '/' . $thumbnailName;
+        }else{
+            $r['images'] = null;
+            $thumbnailName = null;
+            $thumbnailPath = null;
+        }
+        
+        $this->medoo->insert('reports', array(
+            $r['user']['id'],
+            $r['title'],
+            $r['content'],
+            $r['images'],
+            $thumbnailPath
+        ));
+        $lastId = $this->medoo->pdo->lastInsertId('reports_id_seq');
+        if(!$lastId){
+            return $response->withJson(array(
+                'status' => false,
+                'message' => $this->medoo->error() 
+            ), 500);
+        }
+        return $response->withJson(array(
+            'status' => true,
+            'report' => array(
+                'id' => $lastId,
+                'title' => $r['title'],
+                'content' => $r['content'],
+                'images' => $r['images'],
+                'thumbnail' => $thunbnailName
+            )
+        ));
+    }
+    
+    private function copyImage($srcPath, $dstPath, $size){
+        if(empty($srcPath) || empty($dstPath)){
+            throw new Exception('args must be fullfiled.');
+        }
+        
+        if(is_array($size)){
+            $dstW = $size['width'];
+            $dstH = $size['height'];
+        }
+        
+        list($srcW, $srcH) = getimagesize($srcPath);
+        $type = getimagesize($srcPath)['mime'];
+        
+        switch($type){
+            case 'image/png':
+                $srcRes = imagecreatefrompng($srcPath);
+                break;
+            case 'image/gif':
+                $srcRes = imagecreatefromgif($srcRes);
+                break;
+            case 'image/jpeg':
+            case 'image/pjpeg':
+                $srcRes = imagecreatefromjpeg($srcRes);
+                break;
+            default:
+                throw new Exception('image type is not supported.');
+                break;
+        }
+        
+        $dstRes = imagecreatetruecolor($dstW, $dstH);
+        $srcX = $srcY = 0;
+        if($srcW > $srcH){
+            $srcX = ($srcW - $srcH) / 2;
+            $srcW = $srcH;
+        }
+        if($srcH > $srcW){
+            $srcY = ($srcH - $srcW) / 2;
+            $srcH = $srcW;
+        }
+        
+        imagecopyresampled($dstRes, $srcRes, 0, 0, $srcX, $srcY, $dstW, $dstH, $srcW, $srcH);
+        
+        switch($type){
+            case 'image/png':
+                $ret = imagepng($dstRes, $dstPath);
+                break;
+            case 'image/gif':
+                $ret = imagegif($dstRes, $dstPath);
+                break;
+            case 'image/jpeg':
+            case 'image/pjpeg':
+                $ret = imagejpeg($dstRes, $dstPath);
+                break;
+            default:
+                throw new Exception('image type is not supported.');
+                break;
+        }
+        
+        imagedestroy($srcRes);
+        imagedestroy($dstRes);
+        
+        return $ret;
     }
 
 }

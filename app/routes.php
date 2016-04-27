@@ -12,7 +12,9 @@ $app->group('/account', function(){
 });
 
 $app->group('/report', function(){
-    $this->get('/list', 'App\Controller\Report\ListController:defaultAction');
-    $this->post('/image', 'App\Controller\Report\ImageAction:uploadImageAction');
-    $this->get('/new', 'App\Controller\Report\NewAction:getAction');
+    $this->get('/list', 'App\Controller\ReportController:getReportsAction');
+    $this->post('/image', 'App\Controller\ReportController:uploadImageAction');
+    $this->delete('/image[/{email}[/{hash}[/{name}]]]', 'App\Controller\ReportController:deleteImageAction');
+    $this->get('/new', 'App\Controller\ReportController:renderNewHTMLAction');
+    $this->post('', 'App\Controller\ReportController:postReportAction');
 });

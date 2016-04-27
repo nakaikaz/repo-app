@@ -1,5 +1,18 @@
 {% extends "base.html" %}
 
+{% block template %}
+{% verbatim %}
+<script type="text/x-handlebars-template" id="img-tmpl">
+<li class="col-md-4 img-box">
+	<i class="glyphicon glyphicon-remove"></i>
+	<img class="img-responsive" alt="{{imageAlt}}" src="{{imageSource}}" data-name="{{imageName}}">
+	<div class="well well-sm img-memo" ></div>
+	<textarea class="form-control tmp-textarea"></textarea>
+</li>
+</script>
+{% endverbatim %}
+{% endblock %}
+
 {% block title %}新規追加{% endblock %}
 {% block content %}
 {% include "navbar.html" %}
@@ -12,15 +25,15 @@
 			<div class="panel-body">
 				<form class="form-horizontal" id="newForm">
 					<div class="form-group">
-						<label for="reportTitle" class="col-md-2 control-label">タイトル</label>
+						<label class="col-md-2 control-label">タイトル</label>
 						<div class="col-md-10">
-							<input type="text" class="form-control" id="reportTitle" placeholder="タイトル" ng-model="report.title">
+							<input type="text" class="form-control" id="report-title" placeholder="タイトル">
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="reportContent" class="col-md-2 control-label">内容</label>
+						<label class="col-md-2 control-label">内容</label>
 						<div class="col-md-10">
-							  <textarea class="form-control" name="reportContent" id="reportContent" placeholder="内容" ng-model="report.content"></textarea>
+							<textarea class="form-control" name="reportContent" id="report-content" placeholder="内容"></textarea>
 						</div>
 					</div>
 					<div class="form-group">
@@ -29,27 +42,20 @@
 							<div class="btn btn-primary btn-file">
 								<i class="glyphicon glyphicon-folder-open"></i>参照 ...
 							</div>
-                                    <input type="file" accept="image/*" style="display:none;"/>
+							<input type="file" accept="image/*" style="display:none;"/>
 						</div>
 					</div>
-					<div class="form-group image-group">
-						<ul class="image-container col-md-offset-2 col-md-10">
-							<li class="col-md-4">
-								<div class="image-box" ng-mouseenter="removeIconVisible=true" ng-mouseleave="removeIconVisible=false">
-									<i class="glyphicon glyphicon-remove" ng-click="removeImage($index)" ng-class="{'hover': hover, 'active': active, 'visible': removeIconVisible}" ng-mouseover="hover=true" ng-mousedown="active=true" ng-mouseleave="active=false;hover=false"></i>
-									<img class="img-responsive" ng-src="{{image.src}}" alt=""/>
-									<div class="well well-sm" editable-text ng-model="image.memo">{{image.memo}}</div>
-								</div>
-							</li>
-						</ul>
+					<div class="form-group img-group">
+						<ul class="img-container col-md-offset-2 col-md-10"></ul>
 					</div>
 				</form>
 			</div>
 			<div class="panel-footer">
 				<input type="hidden" value="" ng-model="uuid">
-				<button type="button" class="btn btn-primary" ng-click="add()">保存</button>
+				<button type="button" class="btn btn-primary" id="add-btn">保存</button>
 			</div>
 		</div>
-    </div>
+	</div>
 </div>
+{% include "progress-bar.html" %}
 {% endblock %}

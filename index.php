@@ -20,7 +20,7 @@ $settings = require 'app/config/config.php';
 $app = new \Slim\App($settings);
 
 require 'app/dependencies.php';
-require 'app/middleware.php';
+//require 'app/middleware.php';
 require 'app/routes.php';
 
 $app->run();
